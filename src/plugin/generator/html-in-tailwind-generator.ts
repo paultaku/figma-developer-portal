@@ -28,7 +28,6 @@ export class HtmlInTailWindGenerator {
     if (node.type === 'VECTOR') {
       return '';
     }
-
     const classNameList = this.getClassNameList(node).filter((o) => !!o);
     const [open, close] = this.getNodeTemplate(node, classNameList).filter((o) => !!o);
     let children = '';

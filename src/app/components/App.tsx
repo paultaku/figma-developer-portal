@@ -1,18 +1,13 @@
-import React, { useRef, useCallback, useEffect } from 'react';
-import logo from '../assets/logo.svg';
+import React, { Fragment, useEffect, useState } from 'react';
+import htmlPrettierPlugin from 'prettier/plugins/html';
+import * as prettier from 'prettier';
 import '../styles/ui.css';
 import { Event } from '../../plugin/enum/event.enum';
 
-function App() {
-  const textbox = useRef<HTMLInputElement>(undefined);
-
-  const countRef = useCallback((element: HTMLInputElement) => {
-    if (element) element.value = '5';
-    textbox.current = element;
-  }, []);
+const App = () => {
+  const [htmlString, setHtmlString] = useState<string>('');
 
   const onCreate = () => {
-    // const count = parseInt(textbox.current.value, 10);
     parent.postMessage({ pluginMessage: { type: Event.GenerateHtml } }, '*');
   };
 
@@ -20,29 +15,58 @@ function App() {
     parent.postMessage({ pluginMessage: { type: Event.ClosePlugin } }, '*');
   };
 
+  const copyContent = () => {
+    const el = document.createElement('textarea');
+    el.value = htmlString;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  };
+
   useEffect(() => {
     // This is how we read messages sent from the plugin controller
-    window.onmessage = (event) => {
+    window.onmessage = async (event) => {
       const { type, message } = event.data.pluginMessage;
       if (type === Event.GenerateHtml) {
-        console.log(message.html);
+        const html = await prettier.format(message.html, {
+          parser: 'html',
+          trailingComma: 'es5',
+          singleQuote: true,
+          printWidth: 120,
+          tabWidth: 2,
+          bracketSpacing: true,
+          plugins: [htmlPrettierPlugin],
+        });
+        setHtmlString(html);
       }
     };
   }, []);
 
   return (
     <div>
-      <img src={logo} />
-      <h2>Rectangle Creator</h2>
-      <p>
-        Count: <input ref={countRef} />
-      </p>
-      <button id="create" onClick={onCreate}>
-        Create
-      </button>
-      <button onClick={onCancel}>Cancel</button>
+      <h2>TailwindCss</h2>
+      {htmlString && (
+        <Fragment>
+          <div className="code-container">
+            <code>{htmlString}</code>
+          </div>
+          <div>
+            <button id="copy" onClick={copyContent}>
+              Copy
+            </button>
+          </div>
+        </Fragment>
+      )}
+
+      <div className="footer">
+        <button id="create" onClick={onCreate}>
+          Create
+        </button>
+        <button onClick={onCancel}>Close</button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

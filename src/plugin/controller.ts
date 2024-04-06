@@ -1,6 +1,8 @@
 import { EventStrategy } from './strategy/event-strategy';
 
 console.clear();
+// figma.ui.resize(640, 480);
+console.log(figma.viewport.center);
 figma.showUI(__html__);
 
 figma.ui.onmessage = (msg) => {
@@ -18,3 +20,6 @@ figma.ui.onmessage = (msg) => {
     }
   }
 };
+
+const nodes = figma.currentPage.selection;
+figma.viewport.scrollAndZoomIntoView(nodes);

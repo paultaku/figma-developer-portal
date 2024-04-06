@@ -20,7 +20,6 @@ export const EventStrategy = [
       const generator = new HtmlInTailWindGenerator();
       try {
         const html = generator.export(selected);
-        console.log(html);
         return {
           html,
         };

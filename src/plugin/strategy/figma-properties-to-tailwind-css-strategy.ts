@@ -112,7 +112,7 @@ export const FigmaPropertiesToTailwindCssStrategy: Array<StyleRule> = [
   {
     condition: (node) => StrategyConditions.availableKeyInNode(node)('strokes'),
     style: (node) => {
-      return node
+      return node['strokes']
         .map((stroke) => {
           const classNameList = [];
           if (stroke.color) {

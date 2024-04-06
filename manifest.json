@@ -1,6 +1,6 @@
 {
-  "name": "PWC Figma2Html Generator",
-  "id": "00000000",
+  "name": "@paultaku/figma-plugin",
+  "id": "12345678",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
