@@ -6,13 +6,14 @@ export const EventStrategy = [
     event: Event.GenerateHtml,
     handler: () => {
       const selection = figma.currentPage.selection;
+      console.log(selection.map((node) => node.type));
       if (selection.length === 0) {
         figma.closePlugin('Please select a frame.');
         return null;
       }
 
       const selected = selection[0];
-      if (selected.type !== 'FRAME') {
+      if (!['FRAME', 'GROUP'].includes(selected.type)) {
         figma.closePlugin('Please select a frame.');
         return null;
       }

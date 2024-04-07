@@ -1,17 +1,11 @@
 {
-  "name": "@paultaku/figma-plugin",
+  "name": "@paultaku/figma-dev-portal",
   "id": "12345678",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
-  "editorType": [
-    "dev"
-  ],
-  "capabilities": [
-    "codegen",
-    "vscode",
-    "inspect"
-  ],
+  "editorType": ["dev"],
+  "capabilities": ["codegen", "vscode", "inspect"],
   "codegenLanguages": [
     {
       "label": "React",

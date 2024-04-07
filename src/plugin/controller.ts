@@ -1,9 +1,11 @@
 import { EventStrategy } from './strategy/event-strategy';
 
 console.clear();
-// figma.ui.resize(640, 480);
 console.log(figma.viewport.center);
 figma.showUI(__html__);
+const nodes = figma.currentPage.selection;
+figma.viewport.scrollAndZoomIntoView(nodes);
+figma.ui.resize(640, 480);
 
 figma.ui.onmessage = (msg) => {
   for (const strategy of EventStrategy) {
@@ -21,5 +23,3 @@ figma.ui.onmessage = (msg) => {
   }
 };
 
-const nodes = figma.currentPage.selection;
-figma.viewport.scrollAndZoomIntoView(nodes);

@@ -1,7 +1,8 @@
 body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #f9f9f9;
   font: 12px sans-serif;
-  text-align: center;
-  margin: 20px;
 }
 button {
   border-radius: 5px;
@@ -42,11 +43,33 @@ input:focus {
   margin-top: 12px;
   margin-bottom: 12px;
 }
-.footer {
-  margin-top: 12px;
+.header {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #18a0fb;
+  color: white;
+  padding: 8px;
 }
 code {
   color: #c9c9c9;
   padding: 8px 12px;
   line-height: 1.5;
+}
+.content {
+  padding: 8px 12px;
+}
+
+.box-container {  
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+.box {
+  padding: 8px;
+  border-radius: 8px;
+  width: 100px;
+  aspect-ratio: 1/1;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
