@@ -1,5 +1,5 @@
 import { FigmaTypeTagMap } from '../config/figma-type-to-tag';
-import { FigmaPropertiesToTailwindCssStrategy } from '../strategy/figma-properties-to-tailwind-css-strategy';
+import { FigmaPropertiesToTailwindCssStrategy } from '../strategy/figma-properties-to-tailwind-css';
 
 export class HtmlInTailWindGenerator {
   private getClassNameList(node: any) {

@@ -5,14 +5,14 @@ import { Event } from '../../../plugin/enum/event.enum';
 import { Link } from 'react-router-dom';
 import { textCopy } from '../../utils/copyText';
 
-export function TailWindCSS() {
-  const [htmlString, setHtmlString] = useState<string>('');
+export function PromptText() {
+  const [prompt, setPrompt] = useState<string>('');
 
   useEffect(() => {
     window.onmessage = async (event) => {
       const { type, message } = event.data.pluginMessage;
-      if (type === Event.GenerateHtml) {
-        const html = await prettier.format(message.html, {
+      if (type === Event.GeneratePrompt) {
+        const prompt = await prettier.format(message.prompt, {
           parser: 'html',
           trailingComma: 'es5',
           singleQuote: true,
@@ -21,26 +21,26 @@ export function TailWindCSS() {
           bracketSpacing: true,
           plugins: [htmlPrettierPlugin],
         });
-        setHtmlString(html);
+        setPrompt(prompt);
       }
     };
 
-    parent.postMessage({ pluginMessage: { type: Event.GenerateHtml } }, '*');
+    parent.postMessage({ pluginMessage: { type: Event.GeneratePrompt } }, '*');
   }, []);
 
   const copyContent = () => {
-    textCopy(htmlString);
+    textCopy(prompt);
   };
 
   return (
     <Fragment>
-      <h2 className="text-2xl uppercase">TailwindCss</h2>
-      {htmlString && (
+      <h2 className="text-2xl uppercase">Prompt Text</h2>
+      {prompt && (
         <Fragment>
           <div className="container">
-            <code>{htmlString}</code>
+            <textarea cols={30} rows={10} onChange={(ev) => setPrompt(ev.target.value)} value={prompt}></textarea>
           </div>
-          <button type="button" onClick={copyContent}>
+          <button id="copy" onClick={copyContent}>
             Copy
           </button>
         </Fragment>
